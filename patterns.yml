@@ -1,0 +1,255 @@
+# Canary Scanner - Comprehensive Secret Detection Patterns Database
+# =================================================================
+# Version: 2.0.0
+# Last Updated: October 2025
+# 
+# This file contains patterns for detecting secrets in source code.
+# Each pattern has:
+# - rule_id: Unique identifier for tracking
+# - description: Human-readable description  
+# - regex: Regular expression pattern
+# - confidence: Risk level (High/Medium/Low)
+
+# =================================================================
+# CLOUD PROVIDERS - HIGH CONFIDENCE PATTERNS
+# =================================================================
+
+- rule_id: AWS-001
+  description: "AWS Access Key ID"
+  regex: 'AKIA[0-9A-Z]{16}'
+  confidence: "High"
+
+- rule_id: AWS-002
+  description: "AWS Secret Access Key"  
+  regex: '[A-Za-z0-9/+=]{40}'
+  confidence: "High"
+
+- rule_id: AWS-003
+  description: "AWS Session Token"
+  regex: 'FwoGZXIvYXdzE[A-Za-z0-9/+=]+'
+  confidence: "High"
+
+- rule_id: GOOGLE-001
+  description: "Google API Key"
+  regex: 'AIza[0-9A-Za-z\-_]{35}'
+  confidence: "High"
+
+- rule_id: GOOGLE-002
+  description: "Google OAuth2 Token"
+  regex: 'ya29\.[0-9A-Za-z\-_]+'
+  confidence: "High"
+
+# =================================================================
+# VERSION CONTROL - HIGH CONFIDENCE PATTERNS  
+# =================================================================
+
+- rule_id: GITHUB-001
+  description: "GitHub Personal Access Token"
+  regex: 'ghp_[a-zA-Z0-9]{36}'
+  confidence: "High"
+
+- rule_id: GITHUB-002
+  description: "GitHub OAuth Token"
+  regex: 'gho_[a-zA-Z0-9]{36}'
+  confidence: "High"
+
+- rule_id: GITHUB-003
+  description: "GitHub App Token"
+  regex: 'ghs_[a-zA-Z0-9]{36}'
+  confidence: "High"
+
+- rule_id: GITHUB-004
+  description: "GitHub Refresh Token"
+  regex: 'ghr_[a-zA-Z0-9]{76}'
+  confidence: "High"
+
+- rule_id: GITLAB-001
+  description: "GitLab Personal Access Token"
+  regex: 'gl[poas]t-[a-zA-Z0-9\-_]{20}'
+  confidence: "High"
+
+# =================================================================
+# PAYMENT PROVIDERS - HIGH CONFIDENCE PATTERNS
+# =================================================================
+
+- rule_id: STRIPE-001
+  description: "Stripe Live API Key"
+  regex: 'sk_live_[0-9a-zA-Z]{24}'
+  confidence: "High"
+
+- rule_id: STRIPE-002
+  description: "Stripe Test API Key"
+  regex: 'sk_test_[0-9a-zA-Z]{24}'
+  confidence: "Medium"
+
+- rule_id: STRIPE-003
+  description: "Stripe Restricted API Key"
+  regex: 'rk_live_[0-9a-zA-Z]{24}'
+  confidence: "High"
+
+- rule_id: STRIPE-004
+  description: "Stripe Webhook Secret"
+  regex: 'whsec_[a-zA-Z0-9]{32,}'
+  confidence: "High"
+
+# =================================================================
+# COMMUNICATION PLATFORMS - HIGH CONFIDENCE PATTERNS
+# =================================================================
+
+- rule_id: SLACK-001
+  description: "Slack Bot Token"
+  regex: 'xoxb-[0-9]{10,13}-[0-9]{10,13}-[a-zA-Z0-9]{24}'
+  confidence: "High"
+
+- rule_id: SLACK-002
+  description: "Slack User Token"  
+  regex: 'xoxp-[0-9]{10,13}-[0-9]{10,13}-[0-9]{10,13}-[a-zA-Z0-9]{32}'
+  confidence: "High"
+
+- rule_id: SLACK-003
+  description: "Slack App Token"
+  regex: 'xapp-[0-9]{10,13}-[0-9]{10,13}-[a-zA-Z0-9]{24}'
+  confidence: "High"
+
+- rule_id: DISCORD-001
+  description: "Discord Bot Token"
+  regex: '[MN][A-Za-z\d]{23}\.[\w-]{6}\.[\w-]{27}'
+  confidence: "High"
+
+# =================================================================
+# EMAIL & MESSAGING - HIGH CONFIDENCE PATTERNS
+# =================================================================
+
+- rule_id: SENDGRID-001
+  description: "SendGrid API Key"
+  regex: 'SG\.[a-zA-Z0-9\-_]{22}\.[a-zA-Z0-9\-_]{43}'
+  confidence: "High"
+
+- rule_id: MAILGUN-001
+  description: "Mailgun API Key"
+  regex: 'key-[0-9a-zA-Z]{32}'
+  confidence: "High"
+
+- rule_id: TWILIO-001
+  description: "Twilio API Key"
+  regex: 'SK[0-9a-fA-F]{32}'
+  confidence: "High"
+
+# =================================================================
+# DEVELOPMENT PLATFORMS - HIGH CONFIDENCE PATTERNS
+# =================================================================
+
+- rule_id: HEROKU-001
+  description: "Heroku API Key"
+  regex: '[hH][eE][rR][oO][kK][uU].{0,30}[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}'
+  confidence: "High"
+
+- rule_id: DOCKER-001
+  description: "Docker Hub Token"
+  regex: 'dckr_pat_[a-zA-Z0-9_\-]{26}'
+  confidence: "High"
+
+# =================================================================
+# AUTHENTICATION & SECURITY - MEDIUM CONFIDENCE PATTERNS
+# =================================================================
+
+- rule_id: JWT-001
+  description: "JSON Web Token"
+  regex: 'eyJ[A-Za-z0-9-_=]+\.eyJ[A-Za-z0-9-_=]+\.[A-Za-z0-9-_.+/=]*'
+  confidence: "Medium"
+
+- rule_id: SSH-001
+  description: "SSH Private Key"
+  regex: '-----BEGIN (RSA|OPENSSH|DSA|EC) PRIVATE KEY-----'
+  confidence: "High"
+
+- rule_id: SSL-001
+  description: "SSL Private Key"
+  regex: '-----BEGIN PRIVATE KEY-----'
+  confidence: "High"
+
+# =================================================================
+# DATABASE CONNECTIONS - MEDIUM CONFIDENCE PATTERNS
+# =================================================================
+
+- rule_id: MONGODB-001
+  description: "MongoDB Connection String"
+  regex: 'mongodb(\+srv)?://[^\s]{3,}'
+  confidence: "Medium"
+
+- rule_id: MYSQL-001
+  description: "MySQL Connection String"
+  regex: 'mysql://[^\s]{3,}'
+  confidence: "Medium"
+
+- rule_id: POSTGRES-001
+  description: "PostgreSQL Connection String"
+  regex: 'postgres(ql)?://[^\s]{3,}'
+  confidence: "Medium"
+
+- rule_id: REDIS-001
+  description: "Redis Connection String"
+  regex: 'redis://[^\s]{3,}'
+  confidence: "Medium"
+
+# =================================================================
+# SOCIAL MEDIA - MEDIUM CONFIDENCE PATTERNS
+# =================================================================
+
+- rule_id: TWITTER-001
+  description: "Twitter API Key"
+  regex: '[tT][wW][iI][tT][tT][eE][rR].{0,30}[''"][0-9a-zA-Z]{35,44}[''"]'
+  confidence: "Medium"
+
+- rule_id: FACEBOOK-001
+  description: "Facebook Access Token"
+  regex: 'EAA[0-9A-Za-z\-_]{100,}'
+  confidence: "High"
+
+# =================================================================
+# GENERIC PATTERNS - LOW CONFIDENCE (ENTROPY VALIDATED)
+# =================================================================
+
+- rule_id: GENERIC-001
+  description: "Generic API Key"
+  regex: '[aA][pP][iI]_?[kK][eE][yY].*[''"][0-9a-zA-Z]{32,}[''"]'
+  confidence: "Low"
+
+- rule_id: GENERIC-002
+  description: "Generic Secret"
+  regex: '[sS][eE][cC][rR][eE][tT].*[''"][0-9a-zA-Z]{20,}[''"]'
+  confidence: "Low"
+
+- rule_id: GENERIC-003
+  description: "Generic Password"
+  regex: '[pP][aA][sS][sS][wW][oO][rR][dD].*[''"][0-9a-zA-Z!@#$%^&*]{8,}[''"]'
+  confidence: "Low"
+
+- rule_id: GENERIC-004
+  description: "Generic Token"
+  regex: '[tT][oO][kK][eE][nN].*[''"][0-9a-zA-Z]{20,}[''"]'
+  confidence: "Low"
+
+- rule_id: GENERIC-005
+  description: "Generic Authorization Header"
+  regex: '[aA]uthorization.*[''"][Bb]earer [0-9a-zA-Z\-._~+/]+=*[''"]'
+  confidence: "Low"
+
+# =================================================================
+# HIGH ENTROPY PATTERNS - LOW CONFIDENCE (ENTROPY VALIDATED)
+# =================================================================
+
+- rule_id: HIGH-ENTROPY-001
+  description: "High Entropy String (Base64)"
+  regex: '[a-zA-Z0-9+/]{40,}={0,2}'
+  confidence: "Low"
+
+- rule_id: HIGH-ENTROPY-002
+  description: "High Entropy String (Hex)"
+  regex: '[a-fA-F0-9]{32,}'
+  confidence: "Low"
+
+- rule_id: HIGH-ENTROPY-003
+  description: "High Entropy String (Mixed)"
+  regex: '[a-zA-Z0-9\-_]{32,}'
+  confidence: "Low"
